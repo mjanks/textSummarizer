@@ -4,18 +4,20 @@ import java.util.ArrayList;
 
 public class Summarizer {
 
-	public ArrayList<String> removeStopWords(ArrayList<String> list, ArrayList<String> stopWords) {
+	public ArrayList<String> removeStopWords(String list, ArrayList<String> stopWords) {
 		ArrayList<String> newList = new ArrayList<String>();
-		for(int i=0; i < list.size(); i++) {
+		String delims = "[ ]+";
+	    String[] tokens = list.split(delims);
+		for(int i=0; i < tokens.length; i++) {
 			for(int j=0; j < stopWords.size(); j++) {
-				if(list.get(i).equals(stopWords.get(j))) {
+				if((tokens[i].equals(stopWords.get(j)))) {
 					System.out.println("mathced stopword: " + stopWords.get(j));
 					i++;
 					j = 0;
 				} 
 				
 			}
-			newList.add(list.get(i));
+			newList.add(tokens[i]);
 		}
 		return newList;
 	}
