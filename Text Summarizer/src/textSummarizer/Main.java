@@ -17,11 +17,11 @@ public class Main {
 	    Summarizer s = new Summarizer();
 	    
 	    while(scan.hasNext()) {
-	    	wordList.add(scan.next());
+	    	wordList.add(scan.next().toLowerCase());
 	    }
 	    
 	    while(scan2.hasNext()) {
-	    	stopWordList.add(scan2.next());
+	    	stopWordList.add(scan2.next().toLowerCase());
 	    }
 	    
 	    wordListStopsRemoved = s.removeStopWords(wordList, stopWordList);
