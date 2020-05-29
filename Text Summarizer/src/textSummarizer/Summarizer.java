@@ -2,7 +2,9 @@ package textSummarizer;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.LinkedHashSet;
 import java.util.Map;
+import java.util.Set;
 
 public class Summarizer {
 
@@ -41,5 +43,12 @@ public class Summarizer {
                                + ": " + val.getValue() + " times"); 
         } 
     } 
+	
+	public ArrayList<String> removeDuplicates(ArrayList<String> list) {
+		Set<String> listWithoutDuplicates = new LinkedHashSet<String>(list);
+		list.clear();
+		list.addAll(listWithoutDuplicates);
+		return list;
+	}
 
 }

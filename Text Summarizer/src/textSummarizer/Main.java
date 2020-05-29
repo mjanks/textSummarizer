@@ -38,18 +38,20 @@ public class Main {
 	    }
 	    
 	    wordListStopsRemoved = s.removeStopWords(tokens[0].toString().toLowerCase(), stopWordList);
-	    // s.countFrequencies(wordListStopsRemoved);
-	    
-	    TFIDFCalculator calc = new TFIDFCalculator();
-	    String term = "stop";
-	    System.out.println(calc.tf(wordListStopsRemoved, term));
-	    System.out.println(calc.idf(list2, term));
+	    // s.countFrequencies(wordListStopsRemoved)
 	    
 	    System.out.println();
 	    System.out.print("After stops removed: ");
 	    for(int i=0; i < wordListStopsRemoved.size(); i++) {
 	    	System.out.print(wordListStopsRemoved.get(i) + " ");
 	    }
+	    System.out.println();
+	    System.out.println("After duplicates removed: " + s.removeDuplicates(wordListStopsRemoved));
+	    
+	    TFIDFCalculator calc = new TFIDFCalculator();
+	    String term = "stop";
+	    System.out.println(calc.tf(wordListStopsRemoved, term));
+	    System.out.println(calc.idf(list2, term));
 	    
 	    scan.close();
 	    scan2.close();
