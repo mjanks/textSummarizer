@@ -6,20 +6,17 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-/**
- * @author Mohamed Guendouz
- */
 public class TFIDFCalculator extends Summarizer {
 	
 	public Map<String, Double> calcNTF(ArrayList<String> list) {
 		Map<String, Double> NTFHashMap = new HashMap<String, Double>();
-		Map<String, Integer> wordFrequencyHashMap = new HashMap<String, Integer>();
-		int highest = 0;
-		int temp = 0;
+		Map<String, Double> wordFrequencyHashMap = new HashMap<String, Double>();
+		double highest = 0.0;
+		double temp = 0.0;
 		
 		wordFrequencyHashMap = countFrequencies(list);
 		
-		for (Map.Entry<String, Integer> val : wordFrequencyHashMap.entrySet()) {
+		for (Map.Entry<String, Double> val : wordFrequencyHashMap.entrySet()) {
 			temp = val.getValue();
 			if(temp > highest) {
 				highest = temp;
@@ -27,14 +24,17 @@ public class TFIDFCalculator extends Summarizer {
 		}
 		System.out.println("Highest: " + highest);
 		
-		
+		for (Map.Entry<String, Double> val : wordFrequencyHashMap.entrySet()) {
+			NTFHashMap.put(val.getKey(), (val.getValue()/highest));
+			System.out.println("key: " + val.getKey() + " NTF: " + (val.getValue()/highest));
+		}
 		return NTFHashMap;
 	}
 	
-	
-	
-	
-	
+
+/**
+ * @author Mohamed Guendouz
+ */
     /**
      * @param doc  list of strings
      * @param term String represents a term

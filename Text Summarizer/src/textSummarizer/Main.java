@@ -13,7 +13,7 @@ public class Main {
 		ArrayList<String> wordListStopsRemoved = new ArrayList<String>();
 		List<String> list = null;
 		List<List<String>> list2 = null;
-	    File file = new File("test.txt"); 
+	    File file = new File("wikipediaPage.txt"); 
 	    File file2 = new File("stopwords.txt");
 	    Scanner scan = new Scanner(file);
 	    Scanner scan2 = new Scanner(file2);
@@ -48,7 +48,6 @@ public class Main {
 		    System.out.println("After duplicates and stops removed (size: " + 
 		    		s.removeDuplicates(wordListStopsRemoved).size() + "): " + 
 		    		s.removeDuplicates(wordListStopsRemoved));
-		    
 	    }
 	    
 	    //s.countFrequencies(wordListStopsRemoved)

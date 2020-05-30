@@ -23,7 +23,6 @@ public class Summarizer {
 					}
 				} 
 			}
-			
 			if(!"".equals(tokens[i]) && flag == false) {
 				newList.add(tokens[i]);
 			} else {
@@ -37,15 +36,15 @@ public class Summarizer {
 	public Map countFrequencies(ArrayList<String> list) 
     { 
         // hashmap to store the frequency of element 
-        Map<String, Integer> hm = new HashMap<String, Integer>(); 
+        Map<String, Double> hm = new HashMap<String, Double>(); 
   
         for (String i : list) { 
-            Integer j = hm.get(i); 
+            Double j = hm.get(i); 
             hm.put(i, (j == null) ? 1 : j + 1); 
         } 
   
         // displaying the occurrence of elements in the arraylist 
-        for (Map.Entry<String, Integer> val : hm.entrySet()) { 
+        for (Map.Entry<String, Double> val : hm.entrySet()) { 
             System.out.println("Element " + val.getKey() + " "
                                + "occurs"
                                + ": " + val.getValue() + " times"); 
@@ -59,5 +58,4 @@ public class Summarizer {
 		list.addAll(listWithoutDuplicates);
 		return list;
 	}
-
 }
