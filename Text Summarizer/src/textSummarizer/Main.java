@@ -11,7 +11,6 @@ public class Main {
 	public static void main(String[] args) throws Exception {
 		ArrayList<String> stopWordList = new ArrayList<String>();
 		ArrayList<String> wordListStopsRemoved = new ArrayList<String>();
-		String[] newTokens;
 		//List<String> list = null;
 		//List<List<String>> list2 = null;
 		//String term = "dog";
@@ -22,6 +21,7 @@ public class Main {
 	    Scanner scan2 = new Scanner(file2);
 	    Summarizer s = new Summarizer();
 	    TFIDFCalculator calc = new TFIDFCalculator();
+	    int n = 0;  // total number of docs to process
 	    
 	    while(scan.hasNext()) {
 	    	str = str.concat(scan.next() + " ");
@@ -52,8 +52,11 @@ public class Main {
 			    System.out.println("After duplicates and stops removed (size: " + 
 			    		s.removeDuplicates(wordListStopsRemoved).size() + "): " + 
 			    		s.removeDuplicates(wordListStopsRemoved));
+			    n++;
 	    	}
 	    }
+	    System.out.println();
+	    System.out.println("Total number of documents: " + n);
 	    
 	    scan.close();
 	    scan2.close();
