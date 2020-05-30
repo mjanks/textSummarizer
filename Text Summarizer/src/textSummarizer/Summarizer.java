@@ -17,11 +17,14 @@ public class Summarizer {
 				if((tokens[i].equals(stopWords.get(j)))) {
 					System.out.println("mathced stopword: " + stopWords.get(j));
 					i++;
-					j = 0;
+					//j = 0;
 				} 
 				
 			}
-			newList.add(tokens[i]);
+			if(!"".equals(tokens[i])) {
+				newList.add(tokens[i]);
+			}
+			
 		}
 		return newList;
 	}

@@ -42,13 +42,15 @@ public class Main {
 	    for(int i=0; i < tokens.length; i++) {
 	    	wordListStopsRemoved = s.removeStopWords(tokens[i].toString().toLowerCase(), stopWordList);
 	    	System.out.println();
-		    System.out.print("After stops removed: ");
-		    for(int j=0; j < wordListStopsRemoved.size(); j++) {
+		    System.out.print("After stops removed (size: " + wordListStopsRemoved.size() + "): " + wordListStopsRemoved);
+		    /*for(int j=0; j < wordListStopsRemoved.size(); j++) {
 		    	System.out.print(wordListStopsRemoved.get(j) + " ");
-		    }
+		    }*/
+		    //System.out.println(calc.tf(wordListStopsRemoved, term));
+		    //System.out.println("size: " + wordListStopsRemoved.size());
 		    System.out.println();
 		    System.out.println("After duplicates and stops removed: " + s.removeDuplicates(wordListStopsRemoved));
-		    System.out.println(calc.tf(wordListStopsRemoved, term));
+		    
 	    }
 	    
 	    // s.countFrequencies(wordListStopsRemoved)
