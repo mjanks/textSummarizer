@@ -11,6 +11,7 @@ public class Main {
 	public static void main(String[] args) throws Exception {
 		ArrayList<String> stopWordList = new ArrayList<String>();
 		ArrayList<String> wordListStopsRemoved = new ArrayList<String>();
+		ArrayList<String> masterWordList = new ArrayList<String>();
 		//List<String> list = null;
 		//List<List<String>> list2 = null;
 		//String term = "dog";
@@ -52,11 +53,26 @@ public class Main {
 			    System.out.println("After duplicates and stops removed (size: " + 
 			    		s.removeDuplicates(wordListStopsRemoved).size() + "): " + 
 			    		s.removeDuplicates(wordListStopsRemoved));
+			    for(int j=0; j < s.removeDuplicates(wordListStopsRemoved).size(); j++) {
+			    	masterWordList.add(s.removeDuplicates(wordListStopsRemoved).get(j));
+			    }
 			    n++;
 	    	}
 	    }
 	    System.out.println();
 	    System.out.println("Total number of documents: " + n);
+	    
+	    System.out.print("Master word list before remove duplicates: ");
+	    for(String word : masterWordList) {
+	    	System.out.print(word + " ");
+	    }
+	    
+	    System.out.println();
+	    System.out.print("Master word list after remove duplicates: ");
+	    masterWordList = s.removeDuplicates(masterWordList);
+	    for(String word : masterWordList) {
+	    	System.out.print(word + " ");
+	    }
 	    
 	    scan.close();
 	    scan2.close();
