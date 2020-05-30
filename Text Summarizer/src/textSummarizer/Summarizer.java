@@ -10,24 +10,24 @@ public class Summarizer {
 
 	public ArrayList<String> removeStopWords(String list, ArrayList<String> stopWords) {
 		ArrayList<String> newList = new ArrayList<String>();
-		String delims = "[,;:\" ]+";
+		boolean flag = false;
+		String delims = "[,;:\"\\[\\]()\\- ]+";
 	    String[] tokens = list.split(delims);
 		for(int i=0; i < tokens.length; i++) {
 			for(int j=0; j < stopWords.size(); j++) { // indexOutOfBounds Exception when stop word is the last word in a doc
 				if((tokens[i].equals(stopWords.get(j)))) {
 					System.out.println("mathced stopword: " + stopWords.get(j));
-					
-					if (i != tokens.length - 1) {
-						i++;
-					} else {
+					flag = true;
+					if (i == tokens.length - 1) {
 						return newList;
 					}
 				} 
-				
 			}
 			
-			if(!"".equals(tokens[i])) {
+			if(!"".equals(tokens[i]) && flag == false) {
 				newList.add(tokens[i]);
+			} else {
+				flag = false;
 			}
 			
 		}
