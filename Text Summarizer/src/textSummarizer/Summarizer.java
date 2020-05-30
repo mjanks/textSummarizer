@@ -34,7 +34,7 @@ public class Summarizer {
 		return newList;
 	}
 	
-	public static void countFrequencies(ArrayList<String> list) 
+	public Map countFrequencies(ArrayList<String> list) 
     { 
         // hashmap to store the frequency of element 
         Map<String, Integer> hm = new HashMap<String, Integer>(); 
@@ -50,6 +50,7 @@ public class Summarizer {
                                + "occurs"
                                + ": " + val.getValue() + " times"); 
         } 
+        return hm;
     } 
 	
 	public ArrayList<String> removeDuplicates(ArrayList<String> list) {

@@ -13,7 +13,7 @@ public class Main {
 		ArrayList<String> wordListStopsRemoved = new ArrayList<String>();
 		List<String> list = null;
 		List<List<String>> list2 = null;
-	    File file = new File("wikipediaPage.txt"); 
+	    File file = new File("test.txt"); 
 	    File file2 = new File("stopwords.txt");
 	    Scanner scan = new Scanner(file);
 	    Scanner scan2 = new Scanner(file2);
@@ -25,14 +25,14 @@ public class Main {
 	    while(scan.hasNext()) {
 	    	str = str.concat(scan.next() + " ");
 	    }
-	    System.out.println("str: " + str);
-	    String delims = "[.?!]+";
+	    //System.out.println("str: " + str);
+	    String delims = "[.?!]";
 	    String[] tokens = str.split(delims);
 	    for (int i = 0; i < tokens.length; i++) {
 	        list = Arrays.asList(tokens);
 	        list2 = Arrays.asList(list);
 	    }
-	    System.out.println("list2: " + list2);
+	    //System.out.println("list2: " + list2);
 	    
 	    while(scan2.hasNext()) {
 	    	stopWordList.add(scan2.next().toLowerCase());
@@ -43,8 +43,8 @@ public class Main {
 	    	System.out.println("Token " + i + ": " + tokens[i]);
 	    	wordListStopsRemoved = s.removeStopWords(tokens[i].toString().toLowerCase(), stopWordList);
 		    System.out.print("After stops removed (size: " + wordListStopsRemoved.size() + "): " + wordListStopsRemoved);
-		    //System.out.println(calc.tf(wordListStopsRemoved, term));
 		    System.out.println();
+		    calc.calcNTF(wordListStopsRemoved);
 		    System.out.println("After duplicates and stops removed (size: " + 
 		    		s.removeDuplicates(wordListStopsRemoved).size() + "): " + 
 		    		s.removeDuplicates(wordListStopsRemoved));

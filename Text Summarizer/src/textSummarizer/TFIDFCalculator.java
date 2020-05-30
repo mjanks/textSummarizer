@@ -1,12 +1,40 @@
 package textSummarizer;
 
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * @author Mohamed Guendouz
  */
-public class TFIDFCalculator {
+public class TFIDFCalculator extends Summarizer {
+	
+	public Map<String, Double> calcNTF(ArrayList<String> list) {
+		Map<String, Double> NTFHashMap = new HashMap<String, Double>();
+		Map<String, Integer> wordFrequencyHashMap = new HashMap<String, Integer>();
+		int highest = 0;
+		int temp = 0;
+		
+		wordFrequencyHashMap = countFrequencies(list);
+		
+		for (Map.Entry<String, Integer> val : wordFrequencyHashMap.entrySet()) {
+			temp = val.getValue();
+			if(temp > highest) {
+				highest = temp;
+			}
+		}
+		System.out.println("Highest: " + highest);
+		
+		
+		return NTFHashMap;
+	}
+	
+	
+	
+	
+	
     /**
      * @param doc  list of strings
      * @param term String represents a term
