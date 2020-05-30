@@ -31,6 +31,12 @@ public class TFIDFCalculator extends Summarizer {
 		return NTFHashMap;
 	}
 	
+	public Map<String, Double> calcIDF(ArrayList<String> list) {
+		Map<String, Double> IDFHashMap = new HashMap<String, Double>();
+		
+		return IDFHashMap;
+	}
+	
 
 /**
  * @author Mohamed Guendouz
