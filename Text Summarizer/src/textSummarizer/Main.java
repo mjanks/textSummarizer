@@ -19,6 +19,8 @@ public class Main {
 	    Scanner scan2 = new Scanner(file2);
 	    Summarizer s = new Summarizer();
 	    String str = "";
+	    TFIDFCalculator calc = new TFIDFCalculator();
+	    String term = "dog";
 	    
 	    while(scan.hasNext()) {
 	    	str = str.concat(scan.next() + " ");
@@ -37,21 +39,23 @@ public class Main {
 	    	stopWordList.add(scan2.next().toLowerCase());
 	    }
 	    
-	    wordListStopsRemoved = s.removeStopWords(tokens[0].toString().toLowerCase(), stopWordList);
+	    for(int i=0; i < tokens.length; i++) {
+	    	wordListStopsRemoved = s.removeStopWords(tokens[i].toString().toLowerCase(), stopWordList);
+	    	System.out.println();
+		    System.out.print("After stops removed: ");
+		    for(int j=0; j < wordListStopsRemoved.size(); j++) {
+		    	System.out.print(wordListStopsRemoved.get(j) + " ");
+		    }
+		    System.out.println();
+		    System.out.println("After duplicates and stops removed: " + s.removeDuplicates(wordListStopsRemoved));
+		    System.out.println(calc.tf(wordListStopsRemoved, term));
+	    }
+	    
 	    // s.countFrequencies(wordListStopsRemoved)
 	    
-	    System.out.println();
-	    System.out.print("After stops removed: ");
-	    for(int i=0; i < wordListStopsRemoved.size(); i++) {
-	    	System.out.print(wordListStopsRemoved.get(i) + " ");
-	    }
-	    System.out.println();
-	    System.out.println("After duplicates removed: " + s.removeDuplicates(wordListStopsRemoved));
 	    
-	    TFIDFCalculator calc = new TFIDFCalculator();
-	    String term = "stop";
-	    System.out.println(calc.tf(wordListStopsRemoved, term));
-	    System.out.println(calc.idf(list2, term));
+	    //System.out.println(calc.tf(s.removeDuplicates(wordListStopsRemoved), term));
+	    //System.out.println(calc.idf(list2, term));
 	    
 	    scan.close();
 	    scan2.close();
