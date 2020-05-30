@@ -13,7 +13,7 @@ public class Main {
 		ArrayList<String> wordListStopsRemoved = new ArrayList<String>();
 		List<String> list = null;
 		List<List<String>> list2 = null;
-	    File file = new File("easywords.txt"); 
+	    File file = new File("test.txt"); 
 	    File file2 = new File("stopwords.txt");
 	    Scanner scan = new Scanner(file);
 	    Scanner scan2 = new Scanner(file2);
@@ -42,21 +42,16 @@ public class Main {
 	    for(int i=0; i < tokens.length; i++) {
 	    	System.out.println();
 	    	wordListStopsRemoved = s.removeStopWords(tokens[i].toString().toLowerCase(), stopWordList);
-	    	//System.out.println();
 		    System.out.print("After stops removed (size: " + wordListStopsRemoved.size() + "): " + wordListStopsRemoved);
-		    /*for(int j=0; j < wordListStopsRemoved.size(); j++) {
-		    	System.out.print(wordListStopsRemoved.get(j) + " ");
-		    }*/
 		    //System.out.println(calc.tf(wordListStopsRemoved, term));
-		    //System.out.println("size: " + wordListStopsRemoved.size());
 		    System.out.println();
-		    System.out.println("After duplicates and stops removed: " + s.removeDuplicates(wordListStopsRemoved));
+		    System.out.println("After duplicates and stops removed (size: " + 
+		    		s.removeDuplicates(wordListStopsRemoved).size() + "): " + 
+		    		s.removeDuplicates(wordListStopsRemoved));
 		    
 	    }
 	    
-	    // s.countFrequencies(wordListStopsRemoved)
-	    
-	    
+	    //s.countFrequencies(wordListStopsRemoved)
 	    //System.out.println(calc.tf(s.removeDuplicates(wordListStopsRemoved), term));
 	    //System.out.println(calc.idf(list2, term));
 	    

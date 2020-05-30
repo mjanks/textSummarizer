@@ -10,7 +10,7 @@ public class Summarizer {
 
 	public ArrayList<String> removeStopWords(String list, ArrayList<String> stopWords) {
 		ArrayList<String> newList = new ArrayList<String>();
-		String delims = "[ ]+";
+		String delims = "[,;:\" ]+";
 	    String[] tokens = list.split(delims);
 		for(int i=0; i < tokens.length; i++) {
 			for(int j=0; j < stopWords.size(); j++) { // indexOutOfBounds Exception when stop word is the last word in a doc
