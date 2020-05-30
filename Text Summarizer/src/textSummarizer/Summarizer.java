@@ -16,11 +16,16 @@ public class Summarizer {
 			for(int j=0; j < stopWords.size(); j++) { // indexOutOfBounds Exception when stop word is the last word in a doc
 				if((tokens[i].equals(stopWords.get(j)))) {
 					System.out.println("mathced stopword: " + stopWords.get(j));
-					i++;
-					//j = 0;
+					
+					if (i != tokens.length - 1) {
+						i++;
+					} else {
+						return newList;
+					}
 				} 
 				
 			}
+			
 			if(!"".equals(tokens[i])) {
 				newList.add(tokens[i]);
 			}
