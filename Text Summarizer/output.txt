@@ -1,0 +1,6 @@
+The summary contains 5 sentences and is as follows:
+ Information is encoded using minute font perturbations -- changing the stroke width, adjusting the height of ascenders and descenders, or tightening or loosening the curves in serifs and the bowls of letters like o, p, and b. 
+ However, it's a different story for PNG, IMG, and other rasterized (or pixel) fonts, where lighting changes, differing camera perspectives, or noise or blurriness may mask a part of the letter and prevent an easy recognition. 
+ Even if an attacker detects font changes between two texts -- highly unlikely given the subtlety of the perturbations -- it simply isn't practical to scan every file going and coming within a company. 
+ "Changing any letter, punctuation mark, or symbol into a slightly different form allows you to change the meaning of the document," says Xiao, the paper's lead author. 
+ "While there are obvious applications for espionage, we think FontCode has even more practical uses for companies wanting to prevent document tampering or protect copyrights, and for retailers and artists wanting to embed QR codes and other metadata without altering the look or layout of a document," says Changxi Zheng, associate professor of computer science and the paper's senior author. 

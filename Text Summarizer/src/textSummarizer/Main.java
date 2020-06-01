@@ -19,7 +19,7 @@ public class Main {
 		Map<String, Double> IDFHashMap = new HashMap<String, Double>();
 		Map<String, Double> NTFHashMap = new HashMap<String, Double>();
 		Map<String, Double> rankedTreeMap = new TreeMap<String, Double>();
-	    File file = new File("pt.txt"); 
+	    File file = new File("moreTesting.txt"); 
 	    File file2 = new File("stopwords.txt");
 	    String str = "";
 	    Scanner scan = new Scanner(file);
@@ -30,7 +30,7 @@ public class Main {
 	    double numDocsWordIsIn = 0.0;
 	    double temp = 0.0;
 	    double highest = 0.0;
-	    int numOfSentences = 7;
+	    int numOfSentences = 5; // cannot be greater than number of tokens
 	    PrintStream out = new PrintStream(new FileOutputStream("output.txt"));
 	    System.setOut(out);
 	    

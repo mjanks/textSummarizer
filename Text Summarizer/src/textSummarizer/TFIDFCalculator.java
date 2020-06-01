@@ -1,9 +1,7 @@
 package textSummarizer;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 public class TFIDFCalculator extends Summarizer {
@@ -39,7 +37,7 @@ public class TFIDFCalculator extends Summarizer {
 			IDFHashMap.put(val.getKey(), IDF);
 			//System.out.println("key: " + val.getKey() + " IDF: " + IDF);
 		}
-		
+		// This calculation is for a global IDF
 		return IDFHashMap;
 	}
 }
