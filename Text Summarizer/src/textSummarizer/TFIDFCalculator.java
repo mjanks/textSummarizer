@@ -37,7 +37,7 @@ public class TFIDFCalculator extends Summarizer {
 		for(Map.Entry<String, Double> val : termFreq.entrySet()) {
 			IDF = (Math.log(totDocs/val.getValue()) / Math.log(2)) + 1;
 			IDFHashMap.put(val.getKey(), IDF);
-			System.out.println("IDF of word: " + val.getKey() + " is " + IDF);
+			System.out.println("key: " + val.getKey() + " IDF: " + IDF);
 		}
 		
 		return IDFHashMap;

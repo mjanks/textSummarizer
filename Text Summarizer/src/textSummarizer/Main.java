@@ -2,11 +2,10 @@ package textSummarizer;
 
 import java.io.File;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 import java.util.Scanner;
+import java.util.TreeMap;
 
 public class Main {
 
@@ -17,7 +16,8 @@ public class Main {
 		Map<String, Double> docFreqHashMap = new HashMap<String, Double>();
 		Map<String, Double> IDFHashMap = new HashMap<String, Double>();
 		Map<String, Double> NTFHashMap = new HashMap<String, Double>();
-	    File file = new File("easywords.txt"); 
+		Map<String, Double> rankedTreeMap = new TreeMap<String, Double>();
+	    File file = new File("wikipediaPage.txt"); 
 	    File file2 = new File("stopwords.txt");
 	    String str = "";
 	    Scanner scan = new Scanner(file);
@@ -25,7 +25,10 @@ public class Main {
 	    Summarizer s = new Summarizer();
 	    TFIDFCalculator calc = new TFIDFCalculator();
 	    int totDocs = 0;  // total number of docs
-	    double numDocsWordIsIn = 0;
+	    double numDocsWordIsIn = 0.0;
+	    double temp = 0.0;
+	    double highest = 0.0;
+	    int numOfSentences = 7;
 	    
 	    while(scan.hasNext()) {
 	    	str = str.concat(scan.next() + " ");
@@ -46,7 +49,7 @@ public class Main {
 		    	wordListStopsRemoved = s.removeStopWords(tokens[i].toString().toLowerCase(), stopWordList);
 			    System.out.print("After stops removed (size: " + wordListStopsRemoved.size() + "): " + wordListStopsRemoved);
 			    System.out.println();
-			    calc.calcNTF(wordListStopsRemoved);
+			    //calc.calcNTF(wordListStopsRemoved);
 			    System.out.println("After duplicates and stops removed (size: " + 
 			    		s.removeDuplicates(wordListStopsRemoved).size() + "): " + 
 			    		s.removeDuplicates(wordListStopsRemoved));
@@ -72,10 +75,6 @@ public class Main {
 	    	System.out.print(word + " ");
 	    }
 	    
-	    System.out.println();
-	    System.out.println("tokens.length: " + tokens.length);
-	    
-	    
 	    for(int i=0; i < masterWordList.size(); i++) {
 	    	for(int j=0; j < tokens.length; j++) {
 	    		if(!tokens[j].equals(" ")) {
@@ -92,18 +91,40 @@ public class Main {
 	    	System.out.println(masterWordList.get(i) + " appears in " + numDocsWordIsIn + " docs.");
 	    	numDocsWordIsIn = 0;
 	    }
+	    
 	    for(int i=0; i < tokens.length; i++) {
+	    	double rank = 0.0;
 	    	if(!tokens[i].equals(" ")) {
 		    	wordListStopsRemoved = s.removeStopWords(tokens[i].toString().toLowerCase(), stopWordList);
-				wordListStopsRemoved = s.removeDuplicates(wordListStopsRemoved);
 				NTFHashMap = calc.calcNTF(wordListStopsRemoved);
+				wordListStopsRemoved = s.removeDuplicates(wordListStopsRemoved);
 		    	IDFHashMap = calc.calcIDF(totDocs, docFreqHashMap);
+		    	
+		    	for(Map.Entry<String, Double> val : NTFHashMap.entrySet()) {
+		    		if(IDFHashMap.containsKey(val.getKey())) {
+		    			rank += IDFHashMap.get(val.getKey()) * val.getValue();
+		    		}
+		    	}
 	    	}
+	    	System.out.println("rank for " + tokens[i] + " is equal to " + rank);
+	    	rankedTreeMap.put(tokens[i], rank);
 	    }
 	    
+	    for (Map.Entry<String, Double> val : rankedTreeMap.entrySet()) {
+			System.out.println("Value: " + val.getValue() + " and key: " + val.getKey());
+		}
 	    
+	    System.out.println("The summary contains " + numOfSentences + " sentences and is as follows:");
+	    for(int i = 0; i < numOfSentences; i++ ) {
+	    	Map.Entry<String, Double> maxEntry = null;
+		    for(Map.Entry<String, Double> entry : rankedTreeMap.entrySet()){
+		       if(maxEntry == null || entry.getValue().compareTo(maxEntry.getValue()) > 0)
+		          maxEntry = entry;
+		    }
+		    System.out.println(maxEntry.getKey());
+		    rankedTreeMap.put(maxEntry.getKey(), 0.0);
+	    }
 	    scan.close();
 	    scan2.close();
-	  
 	  }
 	}
