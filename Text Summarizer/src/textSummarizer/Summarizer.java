@@ -44,11 +44,12 @@ public class Summarizer {
         } 
   
         // displaying the occurrence of elements in the arraylist 
-        for (Map.Entry<String, Double> val : hm.entrySet()) { 
+        /*for (Map.Entry<String, Double> val : hm.entrySet()) { 
             System.out.println("Element " + val.getKey() + " "
                                + "occurs"
                                + ": " + val.getValue() + " times"); 
         } 
+        */
         return hm;
     } 
 	

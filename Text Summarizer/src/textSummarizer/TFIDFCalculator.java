@@ -22,11 +22,11 @@ public class TFIDFCalculator extends Summarizer {
 				highest = temp;
 			}
 		}
-		System.out.println("Highest: " + highest);
+		//System.out.println("Highest: " + highest);
 		
 		for (Map.Entry<String, Double> val : wordFrequencyHashMap.entrySet()) {
 			NTFHashMap.put(val.getKey(), (val.getValue()/highest));
-			System.out.println("key: " + val.getKey() + " NTF: " + (val.getValue()/highest));
+			//System.out.println("key: " + val.getKey() + " NTF: " + (val.getValue()/highest));
 		}
 		return NTFHashMap;
 	}
@@ -37,7 +37,7 @@ public class TFIDFCalculator extends Summarizer {
 		for(Map.Entry<String, Double> val : termFreq.entrySet()) {
 			IDF = (Math.log(totDocs/val.getValue()) / Math.log(2)) + 1;
 			IDFHashMap.put(val.getKey(), IDF);
-			System.out.println("key: " + val.getKey() + " IDF: " + IDF);
+			//System.out.println("key: " + val.getKey() + " IDF: " + IDF);
 		}
 		
 		return IDFHashMap;

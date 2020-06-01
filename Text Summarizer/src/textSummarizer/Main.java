@@ -1,6 +1,8 @@
 package textSummarizer;
 
 import java.io.File;
+import java.io.FileOutputStream;
+import java.io.PrintStream;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
@@ -17,7 +19,7 @@ public class Main {
 		Map<String, Double> IDFHashMap = new HashMap<String, Double>();
 		Map<String, Double> NTFHashMap = new HashMap<String, Double>();
 		Map<String, Double> rankedTreeMap = new TreeMap<String, Double>();
-	    File file = new File("wikipediaPage.txt"); 
+	    File file = new File("pt.txt"); 
 	    File file2 = new File("stopwords.txt");
 	    String str = "";
 	    Scanner scan = new Scanner(file);
@@ -29,6 +31,8 @@ public class Main {
 	    double temp = 0.0;
 	    double highest = 0.0;
 	    int numOfSentences = 7;
+	    PrintStream out = new PrintStream(new FileOutputStream("output.txt"));
+	    System.setOut(out);
 	    
 	    while(scan.hasNext()) {
 	    	str = str.concat(scan.next() + " ");
@@ -44,15 +48,16 @@ public class Main {
 	    
 	    for(int i=0; i < tokens.length; i++) {
 	    	if(!tokens[i].equals(" ")) {
-	    		System.out.println();
-		    	System.out.println("Token " + i + ": " + tokens[i]);
+	    		//System.out.println();
+		    	//System.out.println("Token " + i + ": " + tokens[i]);
 		    	wordListStopsRemoved = s.removeStopWords(tokens[i].toString().toLowerCase(), stopWordList);
-			    System.out.print("After stops removed (size: " + wordListStopsRemoved.size() + "): " + wordListStopsRemoved);
-			    System.out.println();
+			    //System.out.print("After stops removed (size: " + wordListStopsRemoved.size() + "): " + wordListStopsRemoved);
+			    //System.out.println();
 			    //calc.calcNTF(wordListStopsRemoved);
-			    System.out.println("After duplicates and stops removed (size: " + 
+			    /*System.out.println("After duplicates and stops removed (size: " + 
 			    		s.removeDuplicates(wordListStopsRemoved).size() + "): " + 
 			    		s.removeDuplicates(wordListStopsRemoved));
+			    */
 			    for(int j=0; j < s.removeDuplicates(wordListStopsRemoved).size(); j++) {
 			    	masterWordList.add(s.removeDuplicates(wordListStopsRemoved).get(j));
 			    }
@@ -60,10 +65,10 @@ public class Main {
 	    	}
 	    }
 	    
-	    System.out.println();
-	    System.out.println("Total number of documents: " + totDocs);
+	    //System.out.println();
+	    //System.out.println("Total number of documents: " + totDocs);
 	    
-	    System.out.print("Master word list before remove duplicates (size: " + masterWordList.size() + "): ");
+	    /*System.out.print("Master word list before remove duplicates (size: " + masterWordList.size() + "): ");
 	    for(String word : masterWordList) {
 	    	System.out.print(word + " ");
 	    }
@@ -74,6 +79,7 @@ public class Main {
 	    for(String word : masterWordList) {
 	    	System.out.print(word + " ");
 	    }
+	    */
 	    
 	    for(int i=0; i < masterWordList.size(); i++) {
 	    	for(int j=0; j < tokens.length; j++) {
@@ -88,7 +94,7 @@ public class Main {
 	    		}
 	    	}
 	    	docFreqHashMap.put(masterWordList.get(i), numDocsWordIsIn);
-	    	System.out.println(masterWordList.get(i) + " appears in " + numDocsWordIsIn + " docs.");
+	    	//System.out.println(masterWordList.get(i) + " appears in " + numDocsWordIsIn + " docs.");
 	    	numDocsWordIsIn = 0;
 	    }
 	    
@@ -106,13 +112,14 @@ public class Main {
 		    		}
 		    	}
 	    	}
-	    	System.out.println("rank for " + tokens[i] + " is equal to " + rank);
+	    	//System.out.println("rank for " + tokens[i] + " is equal to " + rank);
 	    	rankedTreeMap.put(tokens[i], rank);
 	    }
 	    
-	    for (Map.Entry<String, Double> val : rankedTreeMap.entrySet()) {
+	    /*for (Map.Entry<String, Double> val : rankedTreeMap.entrySet()) {
 			System.out.println("Value: " + val.getValue() + " and key: " + val.getKey());
 		}
+		*/
 	    
 	    System.out.println("The summary contains " + numOfSentences + " sentences and is as follows:");
 	    for(int i = 0; i < numOfSentences; i++ ) {
@@ -121,9 +128,11 @@ public class Main {
 		       if(maxEntry == null || entry.getValue().compareTo(maxEntry.getValue()) > 0)
 		          maxEntry = entry;
 		    }
-		    System.out.println(maxEntry.getKey());
+		    System.out.println(maxEntry.getKey() + ". ");
 		    rankedTreeMap.put(maxEntry.getKey(), 0.0);
 	    }
+	    
+	    
 	    scan.close();
 	    scan2.close();
 	  }
