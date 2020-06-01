@@ -16,7 +16,8 @@ public class Main {
 		ArrayList<String> masterWordList = new ArrayList<String>();
 		Map<String, Double> docFreqHashMap = new HashMap<String, Double>();
 		Map<String, Double> IDFHashMap = new HashMap<String, Double>();
-	    File file = new File("test.txt"); 
+		Map<String, Double> NTFHashMap = new HashMap<String, Double>();
+	    File file = new File("easywords.txt"); 
 	    File file2 = new File("stopwords.txt");
 	    String str = "";
 	    Scanner scan = new Scanner(file);
@@ -37,9 +38,6 @@ public class Main {
 	    while(scan2.hasNext()) {
 	    	stopWordList.add(scan2.next().toLowerCase());
 	    }
-	 
-	    
-	    IDFHashMap = calc.calcIDF(totDocs, masterWordList, docFreqHashMap);
 	    
 	    for(int i=0; i < tokens.length; i++) {
 	    	if(!tokens[i].equals(" ")) {
@@ -94,9 +92,14 @@ public class Main {
 	    	System.out.println(masterWordList.get(i) + " appears in " + numDocsWordIsIn + " docs.");
 	    	numDocsWordIsIn = 0;
 	    }
-	    
-	    
-	    
+	    for(int i=0; i < tokens.length; i++) {
+	    	if(!tokens[i].equals(" ")) {
+		    	wordListStopsRemoved = s.removeStopWords(tokens[i].toString().toLowerCase(), stopWordList);
+				wordListStopsRemoved = s.removeDuplicates(wordListStopsRemoved);
+				NTFHashMap = calc.calcNTF(wordListStopsRemoved);
+		    	IDFHashMap = calc.calcIDF(totDocs, docFreqHashMap);
+	    	}
+	    }
 	    
 	    
 	    scan.close();

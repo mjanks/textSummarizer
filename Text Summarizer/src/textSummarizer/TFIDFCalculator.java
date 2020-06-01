@@ -31,8 +31,14 @@ public class TFIDFCalculator extends Summarizer {
 		return NTFHashMap;
 	}
 	
-	public Map<String, Double> calcIDF(int totDocs, ArrayList<String> list, Map<String, Double> termFreq) {
+	public Map<String, Double> calcIDF(int totDocs, Map<String, Double> termFreq) {
 		Map<String, Double> IDFHashMap = new HashMap<String, Double>();
+		double IDF = 0.0;
+		for(Map.Entry<String, Double> val : termFreq.entrySet()) {
+			IDF = (Math.log(totDocs/val.getValue()) / Math.log(2)) + 1;
+			IDFHashMap.put(val.getKey(), IDF);
+			System.out.println("IDF of word: " + val.getKey() + " is " + IDF);
+		}
 		
 		return IDFHashMap;
 	}
