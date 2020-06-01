@@ -3,7 +3,9 @@ package textSummarizer;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Scanner;
 
 public class Main {
@@ -12,17 +14,17 @@ public class Main {
 		ArrayList<String> stopWordList = new ArrayList<String>();
 		ArrayList<String> wordListStopsRemoved = new ArrayList<String>();
 		ArrayList<String> masterWordList = new ArrayList<String>();
-		//List<String> list = null;
-		//List<List<String>> list2 = null;
-		//String term = "dog";
-	    File file = new File("easywords.txt"); 
+		Map<String, Double> docFreqHashMap = new HashMap<String, Double>();
+		Map<String, Double> IDFHashMap = new HashMap<String, Double>();
+	    File file = new File("test.txt"); 
 	    File file2 = new File("stopwords.txt");
 	    String str = "";
 	    Scanner scan = new Scanner(file);
 	    Scanner scan2 = new Scanner(file2);
 	    Summarizer s = new Summarizer();
 	    TFIDFCalculator calc = new TFIDFCalculator();
-	    int n = 0;  // total number of docs to process
+	    int totDocs = 0;  // total number of docs
+	    double numDocsWordIsIn = 0;
 	    
 	    while(scan.hasNext()) {
 	    	str = str.concat(scan.next() + " ");
@@ -31,16 +33,13 @@ public class Main {
 	    String delims = "[.?!]";
 	    String[] tokens = str.split(delims);
 	    
-	    /*for (int i = 0; i < tokens.length; i++) {
-	        list = Arrays.asList(tokens);
-	        list2 = Arrays.asList(list);
-	    }
-	    System.out.println("list2: " + list2);
-	    */
 	    
 	    while(scan2.hasNext()) {
 	    	stopWordList.add(scan2.next().toLowerCase());
 	    }
+	 
+	    
+	    IDFHashMap = calc.calcIDF(totDocs, masterWordList, docFreqHashMap);
 	    
 	    for(int i=0; i < tokens.length; i++) {
 	    	if(!tokens[i].equals(" ")) {
@@ -56,23 +55,49 @@ public class Main {
 			    for(int j=0; j < s.removeDuplicates(wordListStopsRemoved).size(); j++) {
 			    	masterWordList.add(s.removeDuplicates(wordListStopsRemoved).get(j));
 			    }
-			    n++;
+			    totDocs++;
 	    	}
 	    }
-	    System.out.println();
-	    System.out.println("Total number of documents: " + n);
 	    
-	    System.out.print("Master word list before remove duplicates: ");
+	    System.out.println();
+	    System.out.println("Total number of documents: " + totDocs);
+	    
+	    System.out.print("Master word list before remove duplicates (size: " + masterWordList.size() + "): ");
 	    for(String word : masterWordList) {
 	    	System.out.print(word + " ");
 	    }
 	    
 	    System.out.println();
-	    System.out.print("Master word list after remove duplicates: ");
 	    masterWordList = s.removeDuplicates(masterWordList);
+	    System.out.print("Master word list after remove duplicates (size: " + masterWordList.size() + "): ");
 	    for(String word : masterWordList) {
 	    	System.out.print(word + " ");
 	    }
+	    
+	    System.out.println();
+	    System.out.println("tokens.length: " + tokens.length);
+	    
+	    
+	    for(int i=0; i < masterWordList.size(); i++) {
+	    	for(int j=0; j < tokens.length; j++) {
+	    		if(!tokens[j].equals(" ")) {
+	    			wordListStopsRemoved = s.removeStopWords(tokens[j].toString().toLowerCase(), stopWordList);
+	    			wordListStopsRemoved = s.removeDuplicates(wordListStopsRemoved);
+	    			for(int k=0; k < wordListStopsRemoved.size(); k++) {
+	    				if(masterWordList.get(i).equals(wordListStopsRemoved.get(k))) {
+		    				numDocsWordIsIn++;
+		    			}
+	    			}
+	    		}
+	    	}
+	    	docFreqHashMap.put(masterWordList.get(i), numDocsWordIsIn);
+	    	System.out.println(masterWordList.get(i) + " appears in " + numDocsWordIsIn + " docs.");
+	    	numDocsWordIsIn = 0;
+	    }
+	    
+	    
+	    
+	    
 	    
 	    scan.close();
 	    scan2.close();

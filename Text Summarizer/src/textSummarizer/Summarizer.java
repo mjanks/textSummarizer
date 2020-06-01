@@ -14,9 +14,9 @@ public class Summarizer {
 		String delims = "[,;:\"\\[\\]()\\- ]+";
 	    String[] tokens = list.split(delims);
 		for(int i=0; i < tokens.length; i++) {
-			for(int j=0; j < stopWords.size(); j++) { // indexOutOfBounds Exception when stop word is the last word in a doc
+			for(int j=0; j < stopWords.size(); j++) { // indexOutOfBounds Exception when stop word is the last word in a doc *FIXED!*
 				if((tokens[i].equals(stopWords.get(j)))) {
-					System.out.println("mathced stopword: " + stopWords.get(j));
+					//System.out.println("matched stopword: " + stopWords.get(j));
 					flag = true;
 					if (i == tokens.length - 1) {
 						return newList;
