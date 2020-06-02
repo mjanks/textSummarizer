@@ -31,6 +31,7 @@ public class Main {
 	    double temp = 0.0;
 	    double highest = 0.0;
 	    int numOfSentences = 30; // cannot be greater than number of tokens
+	    
 	    PrintStream out = new PrintStream(new FileOutputStream("output.txt"));
 	    System.setOut(out);
 	    
