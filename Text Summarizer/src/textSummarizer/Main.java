@@ -1,3 +1,16 @@
+/********************
+ * 
+ * Text Summarizer by Michael Janks
+ * Date: 6/1/20
+ * 
+ * This program will output a summarized a text document of an
+ * original text document given as input. The number of sentences 
+ * to return can also be specified. The program uses extractive 
+ * summarization. The ranking is determined using NTF and IDF 
+ * calculations.
+ *
+ ********************/
+
 package textSummarizer;
 
 import java.io.File;
